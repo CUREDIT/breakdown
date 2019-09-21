@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import * as d3 from 'd3';
 
 import { Graph } from './graph.model';
-import { XYLengths } from './types/svg';
+import { XY } from './types/graph';
 import { Node } from './node.model';
 import { Edge } from './edge.model';
 
@@ -15,23 +15,34 @@ export class Simulation {
   id: number;
   graph: Graph;
 
-  private d3Sim: d3.Simulation<Node, Edge>;
+  d3Sim: d3.Simulation<Node, Edge>;
   ticker = new Subject<d3.Simulation<Node, Edge>>();
 
-  constructor(graph: Graph, axes: XYLengths) {
+  constructor(graph: Graph, axes: XY) {
     this.graph = graph;
     this.init(axes);
   }
 
-  init(axes: XYLengths) {
-    if (!axes || !axes.xLength || !axes.yLength) {
+
+
+  init(axes: XY) {
+    if (!axes || !axes.x || !axes.y) {
       throw new Error('Axes lengths missing');
     }
+
+    // const boxForce = () => {
+    //   for (let i = 0, n = this.graph.nodes.length; i < n; ++i) {
+    //     const currNode = this.graph.nodes[i];
+    //     currNode.x = Math.max(currNode.r, Math.min(axes.x - 200 - currNode.r, currNode.x));
+    //     currNode.y = Math.max(currNode.r, Math.min(axes.y - 200 - currNode.r, currNode.y));
+    //   }
+    // };
 
     if (!this.d3Sim) {
       const ticker = this.ticker;
 
       this.d3Sim = d3.forceSimulation()
+        // .force('box', boxForce)
         .force('charge',
           d3.forceManyBody().strength(DEFAULT_STRENGTH))
         .force('collide',
@@ -45,7 +56,7 @@ export class Simulation {
      }
 
     this.d3Sim.force('center',
-      d3.forceCenter(axes.xLength / 2, axes.yLength / 2));
+      d3.forceCenter(axes.x / 2, axes.y / 2));
     this.d3Sim.restart();
   }
 

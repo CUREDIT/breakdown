@@ -4,6 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./workspace/workspace.module')
+      .then(m => m.WorkspaceModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'

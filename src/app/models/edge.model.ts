@@ -13,7 +13,9 @@ export class Edge implements d3.SimulationLinkDatum<Node> {
   index?: number;
   label?: string;
 
-  meta: LinkMetatype;
+  meta?: LinkMetatype;
+
+  graphId?: number;
 
   constructor(public source: NodeRef, public target: NodeRef) {}
 

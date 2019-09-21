@@ -1,0 +1,12 @@
+<svg #networkContainer [attr.width]="defaultDim" [attr.height]="defaultDim">
+  <g>
+    <g cureditEdge [edge]="edge" *ngFor="let edge of (sim$ | async)?.graph?.edges"></g>
+    <g
+      cureditNode
+      (nodeClick)="getEditor($event)"
+      [node]="node" *ngFor="let node of (sim$ | async)?.graph?.nodes"
+      [cureditD3Drag]="(sim$ | async)"
+    ></g>
+  </g>
+</svg>
+<curedit-editor *ngIf="editorCoords" [top]="editorCoords.y" [left]="editorCoords.x"></curedit-editor>

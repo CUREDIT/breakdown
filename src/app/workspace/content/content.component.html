@@ -1,0 +1,28 @@
+<nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+    <nb-card-front>
+      <nb-card size="giant" accent="info">
+        <nb-card-header>
+            Graph
+            <span class="header-toggler" (click)="flipped = !flipped;">TreeTable
+              <nb-icon status="primary" icon="swap-outline"></nb-icon>
+            </span>
+        </nb-card-header>
+          <nb-card-body>
+            <curedit-network-view></curedit-network-view>
+          </nb-card-body>
+      </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+      <nb-card size="giant" accent="info">
+        <nb-card-header>
+          TreeTable
+          <span class="header-toggler" (click)="flipped = !flipped;">Graph
+            <nb-icon status="primary" icon="swap-outline"></nb-icon>
+          </span>
+        </nb-card-header>
+        <nb-card-body>
+          <curedit-tree-view></curedit-tree-view>
+        </nb-card-body>
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
