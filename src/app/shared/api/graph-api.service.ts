@@ -17,16 +17,17 @@ export class SimApiService {
 
   constructor(private http: HttpClient, private d3Graph: D3GraphService) { }
 
-  getGraphs(): Observable<Graph[]> {
+  updateInMemoryGraph(g: Graph, remove = false): Graph {
+    this.d3Graph.updateNodes(g.nodes, remove);
+    this.d3Graph.updateEdges(g.edges, remove);
+    return this.d3Graph.graph;
+  }
 
+  getGraphs(): Observable<Graph[]> {
     return this.http.get<Graph[]>(this.graphsUrl)
       .pipe(
         map(gArr =>
-          gArr.map(g => {
-            this.d3Graph.addNodes(g.nodes.map(n => this.d3Graph.getNodeInGraph(n)));
-            this.d3Graph.addEdges(g.edges.map(e => this.d3Graph.getEdgeInGraph(e)));
-            return this.d3Graph.graph;
-          })),
+          gArr.map(g => this.updateInMemoryGraph(g))),
         catchError(this.errorHandler<Graph[]>('getGraphs', []))
       );
   }
@@ -34,6 +35,7 @@ export class SimApiService {
   getGraph(id: number): Observable<Graph> {
     return this.http.get<Graph>(this.graphsUrl + `/${id}`)
       .pipe(
+        map(g => this.updateInMemoryGraph(g)),
         catchError(this.errorHandler<Graph>(`getGraph/${id}`))
       );
   }
@@ -44,6 +46,7 @@ export class SimApiService {
     }
     return this.http.post<Graph>(this.graphsUrl, graph, this.httpOptions)
       .pipe(
+        map(g => this.updateInMemoryGraph(g)),
         catchError(this.errorHandler<Graph>(`createGraph`))
       );
   }
@@ -54,6 +57,7 @@ export class SimApiService {
     }
     return this.http.put<Graph>(this.graphsUrl, graph, this.httpOptions)
       .pipe(
+        map(g => this.updateInMemoryGraph(g)),
         catchError(this.errorHandler<Graph>(`updateGraph`))
       );
   }
@@ -63,6 +67,7 @@ export class SimApiService {
 
     return this.http.delete<Graph>(this.graphsUrl + `/${id}`, this.httpOptions)
       .pipe(
+        map(g => this.updateInMemoryGraph(g, true)),
         catchError(this.errorHandler<Graph>(`deleteGraph/${id}`))
       );
   }

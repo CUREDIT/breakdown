@@ -2,20 +2,19 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   HostListener,
   OnDestroy,
   OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-
 import { Simulation } from '../../../models/simulation.model';
-import { XY } from '../../../models/types/graph';
-import { D3SimService } from '../../../shared/d3/d3-sim.service';
-import { SimApiService } from '../../../shared/mock-backend/sim-api.service';
+import { XY } from '../../../models/typings/graph';
+import { SimApiService } from '../../../shared/api/graph-api.service';
 import { D3GraphService } from '../../../shared/d3/d3-graph.service';
+import { D3SimService } from '../../../shared/d3/d3-sim.service';
+
 
 @Component({
   selector: 'curedit-network-view',
@@ -23,7 +22,7 @@ import { D3GraphService } from '../../../shared/d3/d3-graph.service';
   styleUrls: ['./network-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NetworkViewComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NetworkViewComponent implements OnInit, OnDestroy {
 
   sim$: BehaviorSubject<Simulation> = new BehaviorSubject<Simulation>(null);
   private tickerSubscription: Subscription;
@@ -32,7 +31,7 @@ export class NetworkViewComponent implements OnInit, OnDestroy, AfterViewInit {
   simAxes: XY;
   editorCoords: XY;
 
-  @ViewChild('networkContainer', { static: false }) networkContainer: ElementRef;
+  @ViewChild('networkContainer', { static: true }) networkContainer: ElementRef;
 
   constructor(
     private d3Sim: D3SimService,
@@ -40,33 +39,25 @@ export class NetworkViewComponent implements OnInit, OnDestroy, AfterViewInit {
     private simApi: SimApiService,
     private changeRef: ChangeDetectorRef) { }
 
+
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  onResize() {
     const { width, height } = this.networkContainer.nativeElement.getBoundingClientRect();
-    console.log('networkContainer dims resize', width, height);
     this.simAxes = { x: width, y: height };
     const simulation = this.sim$.getValue();
     if (simulation) {
       simulation.init(this.simAxes);
     }
-    console.log('sim$', simulation, this.simAxes);
   }
 
   ngOnInit() {
-    this.simAxes = { x: window.outerWidth, y: window.outerHeight / 2 };
+    this.simAxes = { x: window.outerWidth / 1.2, y: window.outerHeight / 1.5 };
     this.simApi.getGraphs()
       .subscribe(g => {
         const sim = this.d3Sim.startSimulation(this.d3Graph.graph, this.simAxes);
         this.tickerSubscription = sim.ticker.subscribe(_ => this.changeRef.markForCheck());
         this.sim$.next(sim);
-        console.log('get graphs', sim, this.sim$);
       });
-    console.log('init simaxes', this.simAxes);
-  }
-
-  ngAfterViewInit() {
-    const { width, height } = this.networkContainer.nativeElement.getBoundingClientRect();
-    console.log('network dims', this.networkContainer.nativeElement.getBoundingClientRect());
   }
 
   ngOnDestroy() {

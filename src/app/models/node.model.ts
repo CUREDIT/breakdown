@@ -1,5 +1,5 @@
-import { Hue } from './types/hsl';
-import { Content, Metatype } from './types/meta';
+import { Hue } from './typings/hsl';
+import { Content, Metatype } from './typings/meta';
 
 const DEFAULT_COLOR = `hsl(${Hue.BLUE}, 50%, 50%)`;
 

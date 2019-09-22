@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { Node } from 'src/app/models/node.model';
 import { Graph } from '../../models/graph.model';
 import { Simulation } from '../../models/simulation.model';
-import { XY } from '../../models/types/graph';
+import { XY } from '../../models/typings/graph';
 
 
 @Injectable({

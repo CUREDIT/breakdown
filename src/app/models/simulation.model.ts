@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import * as d3 from 'd3';
 
 import { Graph } from './graph.model';
-import { XY } from './types/graph';
+import { XY } from './typings/graph';
 import { Node } from './node.model';
 import { Edge } from './edge.model';
 

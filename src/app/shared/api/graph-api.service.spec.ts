@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SimApiService } from './sim-api.service';
+import { SimApiService } from './graph-api.service';
 
 describe('SimApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

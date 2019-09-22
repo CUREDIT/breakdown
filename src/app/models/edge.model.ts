@@ -1,5 +1,5 @@
 import { Node } from './node.model';
-import { LinkMetatype } from './types/meta';
+import { LinkMetatype } from './typings/meta';
 
 export type NodeRef = string | number | Node;
 

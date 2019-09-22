@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { XY } from 'src/app/models/types/graph';
+import { XY } from 'src/app/models/typings/graph';
 
 @Component({
   selector: 'curedit-content',

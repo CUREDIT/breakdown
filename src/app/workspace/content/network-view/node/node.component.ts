@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Node } from '../../../../models/node.model';
-import { XY } from '../../../../models/types/graph';
+import { XY } from '../../../../models/typings/graph';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -14,9 +14,6 @@ export class NodeComponent implements OnChanges {
 
   @Output() nodeClick = new EventEmitter<XY>();
 
-  // curr_node.x = Math.max(radius, Math.min(width - radius, curr_node.x));
-  // curr_node.y = Math.max(radius, Math.min(height - radius, curr_node.y));
-
   nodeClicked(event: MouseEvent) {
     this.nodeClick.emit({
       x: event.offsetX,
@@ -25,7 +22,6 @@ export class NodeComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('changes', changes);
     // this.node.x = Math.max(this.node.r, Math.min(300 - this.node.r, changes.node.currentValue.x));
     // this.node.y = Math.max(this.node.r, Math.min(300 - this.node.r, changes.node.currentValue.y));
   }

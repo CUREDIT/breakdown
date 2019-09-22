@@ -7,9 +7,9 @@ import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@n
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './sso/auth.module';
 import { LayoutModule } from './layout/layout.module';
-import { InMemoryNetApiService } from './shared/mock-backend/in-memory-net-api.service';
+import { InMemoryNetApiService } from './shared/mocks/in-memory-net-api.service';
 import { WorkspaceModule } from './workspace/workspace.module';
 
 
