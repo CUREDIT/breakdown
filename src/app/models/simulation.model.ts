@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import * as d3 from 'd3';
 
 import { Graph } from './graph.model';
-import { XY } from './typings/graph';
+import { XY } from '../typings/graph';
 import { Node } from './node.model';
 import { Edge } from './edge.model';
 
@@ -58,6 +58,10 @@ export class Simulation {
     this.d3Sim.force('center',
       d3.forceCenter(axes.x / 2, axes.y / 2));
     this.d3Sim.restart();
+  }
+
+  destroy() {
+    this.d3Sim = null;
   }
 
   refreshGraph() {

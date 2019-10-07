@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Node } from '../../../../models/node.model';
-import { XY } from '../../../../models/typings/graph';
+import { XY } from '../../../../typings/graph';
 
 @Component({
   // tslint:disable-next-line: component-selector

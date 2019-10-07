@@ -1,5 +1,6 @@
-import { Hue } from './typings/hsl';
-import { Content, Metatype } from './typings/meta';
+import { Hue } from '../typings/hsl';
+import { Content, Metatype } from '../typings/meta';
+import { IdType } from 'vis';
 
 const DEFAULT_COLOR = `hsl(${Hue.BLUE}, 50%, 50%)`;
 

@@ -2,8 +2,8 @@
     <nb-card-front>
       <nb-card size="giant" accent="info">
         <nb-card-header>
-            Graph
-            <span class="header-toggler" (click)="flipped = !flipped;">TreeTable
+            {{ workspaceName | titlecase }}
+            <span class="header-toggler" (click)="toggleNav()">TreeTable
               <nb-icon status="primary" icon="swap-outline"></nb-icon>
             </span>
         </nb-card-header>
@@ -15,8 +15,8 @@
     <nb-card-back>
       <nb-card size="giant" accent="info">
         <nb-card-header>
-          TreeTable
-          <span class="header-toggler" (click)="flipped = !flipped;">Graph
+          {{ workspaceName | titlecase }}
+          <span class="header-toggler" (click)="toggleNav()">Graph
             <nb-icon status="primary" icon="swap-outline"></nb-icon>
           </span>
         </nb-card-header>

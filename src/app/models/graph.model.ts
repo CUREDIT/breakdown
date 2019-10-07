@@ -1,6 +1,6 @@
 import { Edge, isRefNode } from './edge.model';
 import { Node } from './node.model';
-import { NodeOrder } from './typings/graph';
+import { NodeOrder } from '../typings/graph';
 export class Graph {
 
   id: number;

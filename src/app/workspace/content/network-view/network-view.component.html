@@ -1,4 +1,4 @@
-<svg #networkContainer [attr.width]="defaultDim" [attr.height]="defaultDim">
+<!-- <svg #networkContainer [attr.width]="defaultDim" [attr.height]="defaultDim">
   <g>
     <g cureditEdge [edge]="edge" *ngFor="let edge of (sim$ | async)?.graph?.edges"></g>
     <g
@@ -8,5 +8,6 @@
       [cureditD3Drag]="(sim$ | async)"
     ></g>
   </g>
-</svg>
+</svg> -->
+<div id="visnet" [cureditVisNet]="graphData"></div>
 <curedit-editor *ngIf="editorCoords" [top]="editorCoords.y" [left]="editorCoords.x"></curedit-editor>

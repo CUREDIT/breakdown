@@ -2,9 +2,9 @@
   <nb-card-body>
     <nb-actions>
       <nb-action icon="search-outline" (click)="activateSearch()">
-        <nb-search hint="Search Books" tag="initbar" type="rotate-layout"></nb-search>
+        <nb-search hint="Search Workspaces" tag="initbar" type="rotate-layout"></nb-search>
       </nb-action>
-      <nb-action icon="plus-outline"></nb-action>
+      <nb-action icon="plus-outline" [routerLink]="['/new']"></nb-action>
       <nb-action icon="book-open-outline"></nb-action>
     </nb-actions>
   </nb-card-body>

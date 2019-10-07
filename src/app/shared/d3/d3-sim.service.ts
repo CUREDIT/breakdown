@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { Node } from 'src/app/models/node.model';
 import { Graph } from '../../models/graph.model';
 import { Simulation } from '../../models/simulation.model';
-import { XY } from '../../models/typings/graph';
+import { XY } from '../../typings/graph';
 
 
 @Injectable({
@@ -13,6 +13,7 @@ export class D3SimService {
 
   private graph: Graph;
   private axes: XY;
+  private sim: Simulation;
 
   constructor() { }
 
@@ -27,7 +28,11 @@ export class D3SimService {
   startSimulation(graph?: Graph, axes?: XY): Simulation {
     this.graph = graph || this.graph;
     this.axes = axes || this.axes;
-    return this.graph && this.axes ? new Simulation(graph, axes) : null;
+    return this.graph && this.axes ? this.sim = new Simulation(graph, axes) : null;
+  }
+
+  stopSimulation() {
+    this.sim.destroy();
   }
 
   makeDraggable(element: Element, node: Node, sim: Simulation) {

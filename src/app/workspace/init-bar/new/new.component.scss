@@ -1,0 +1,11 @@
+[status="info"] {
+  float: right;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form):not(.ng-untouched):not(.ng-pristine)  {
+  border-left: 5px solid #a94442;
+}
