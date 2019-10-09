@@ -1,10 +1,9 @@
 import { Hue } from '../typings/hsl';
 import { Content, Metatype } from '../typings/meta';
-import { IdType } from 'vis';
 
 const DEFAULT_COLOR = `hsl(${Hue.BLUE}, 50%, 50%)`;
 
-export class Node implements d3.SimulationNodeDatum {
+export class Node {
 
     // NB: index is assigned internally by simulation, once initialized it is defined
   index?: number;
@@ -28,13 +27,17 @@ export class Node implements d3.SimulationNodeDatum {
 
   color = DEFAULT_COLOR;
 
+  label: string;
+
   constructor(id: string) {
     this.id = id;
+    this.label = id;
   }
 
-  get label(): string {
-    return this.meta && this.meta.label ? this.meta.label : this.id;
-  }
+
+  // get label(): string {
+  //   return this.meta && this.meta.label ? this.meta.label : this.id;
+  // }
 
   get color2(): string {
     return this.meta && this.meta.color ?

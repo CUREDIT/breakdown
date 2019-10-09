@@ -1,13 +1,13 @@
-import { Node } from './node.model';
+import { IdType } from 'vis';
 import { LinkMetatype } from '../typings/meta';
 
-export type NodeRef = string | number | Node;
+// export type NodeRef = string | number | Node;
 
-export function isRefNode(ref: NodeRef): ref is Node {
-  return typeof ref !== 'number' && typeof ref !== 'string';
-}
+// export function isRefNode(ref: NodeRef): ref is Node {
+//   return typeof ref !== 'number' && typeof ref !== 'string';
+// }
 
-export class Edge implements d3.SimulationLinkDatum<Node> {
+export class Edge {
 
   // NB: index is assigned internally by force, once initialized it is defined
   index?: number;
@@ -17,7 +17,7 @@ export class Edge implements d3.SimulationLinkDatum<Node> {
 
   graphId?: number;
 
-  constructor(public source: NodeRef, public target: NodeRef) {}
+  constructor(public from: IdType, public to: IdType) {}
 
 }
 

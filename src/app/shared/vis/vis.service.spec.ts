@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { D3GraphService } from './d3-graph.service';
+import { VisService } from './vis.service';
 
-describe('D3GraphService', () => {
+describe('VisService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: D3GraphService = TestBed.get(D3GraphService);
+    const service: VisService = TestBed.get(VisService);
     expect(service).toBeTruthy();
   });
 });

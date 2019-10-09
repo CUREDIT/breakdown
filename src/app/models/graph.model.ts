@@ -1,6 +1,6 @@
-import { Edge, isRefNode } from './edge.model';
-import { Node } from './node.model';
 import { NodeOrder } from '../typings/graph';
+import { Edge } from './edge.model';
+import { Node } from './node.model';
 export class Graph {
 
   id: number;
@@ -19,10 +19,8 @@ export class Graph {
     const sources: string[] = [];
     const targets: string[] = [];
     this.edges.forEach( (edge: Edge) => {
-      isRefNode(edge.source) ?
-        sources.push(edge.source.id) : sources.push(edge.source.toString());
-      isRefNode(edge.target) ?
-        targets.push(edge.target.id) : targets.push(edge.target.toString());
+      sources.push(edge.from.toString());
+      targets.push(edge.to.toString());
     });
     return { sources, targets };
   }

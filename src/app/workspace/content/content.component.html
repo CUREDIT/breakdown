@@ -1,14 +1,14 @@
-<nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+<nb-reveal-card [showToggleButton]="false" [revealed]="flipped">
     <nb-card-front>
       <nb-card size="giant" accent="info">
-        <nb-card-header>
+        <nb-card-header (click)="networkView.onResize()">
             {{ workspaceName | titlecase }}
-            <span class="header-toggler" (click)="toggleNav()">TreeTable
-              <nb-icon status="primary" icon="swap-outline"></nb-icon>
+            <span class="header-toggler" (click)="toggleNav()">
+              <nb-icon status="primary" icon="settings-2-outline"></nb-icon>
             </span>
         </nb-card-header>
           <nb-card-body>
-            <curedit-network-view></curedit-network-view>
+            <curedit-network-view #networkView></curedit-network-view>
           </nb-card-body>
       </nb-card>
     </nb-card-front>
@@ -16,8 +16,8 @@
       <nb-card size="giant" accent="info">
         <nb-card-header>
           {{ workspaceName | titlecase }}
-          <span class="header-toggler" (click)="toggleNav()">Graph
-            <nb-icon status="primary" icon="swap-outline"></nb-icon>
+          <span class="header-toggler" (click)="toggleNav()">
+            <nb-icon status="primary" icon="edit-2-outline"></nb-icon>
           </span>
         </nb-card-header>
         <nb-card-body>
@@ -25,4 +25,4 @@
         </nb-card-body>
       </nb-card>
     </nb-card-back>
-  </nb-flip-card>
+  </nb-reveal-card>

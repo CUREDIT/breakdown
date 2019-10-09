@@ -1,105 +1,71 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  AfterContentInit
-} from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { Simulation } from '../../../models/simulation.model';
-import { XY } from '../../../typings/graph';
+import { AfterContentInit, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core';
+import { NbWindowService, NbWindowRef, NbWindowState } from '@nebular/theme';
+import { Subscription } from 'rxjs';
 import { SimApiService } from '../../../shared/api/graph-api.service';
-import { D3GraphService } from '../../../shared/d3/d3-graph.service';
-import { D3SimService } from '../../../shared/d3/d3-sim.service';
-import { GraphData } from 'src/app/typings/graphData';
-import { DataSet, Edge, Node } from 'vis';
-import { isRefNode } from 'src/app/models/edge.model';
+import { VisService } from '../../../shared/vis/vis.service';
+import { XY } from '../../../typings/graph';
+import { EditorComponent } from '../../editor/editor.component';
 
 @Component({
   selector: 'curedit-network-view',
   templateUrl: './network-view.component.html',
-  styleUrls: ['./network-view.component.scss'],
+  styleUrls: ['./network-view.component.scss']
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NetworkViewComponent implements AfterContentInit, OnDestroy {
-  sim$: BehaviorSubject<Simulation> = new BehaviorSubject<Simulation>(null);
-  private tickerSubscription: Subscription;
-
-  defaultDim = '100%';
-  simAxes: XY;
-  editorCoords: XY;
-
-  graphData: GraphData = { nodes: null, edges: null };
-
   @ViewChild('networkContainer', { static: true }) networkContainer: ElementRef;
 
+  private coordSub: Subscription;
+  editorCoords: XY;
+  private windowRef: NbWindowRef;
+
   constructor(
-    private d3Sim: D3SimService,
-    private d3Graph: D3GraphService,
     private simApi: SimApiService,
-    private changeRef: ChangeDetectorRef
+    private visService: VisService,
+    private windowService: NbWindowService
   ) {}
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize() {
-  //   const { width, height } = this.networkContainer.nativeElement.getBoundingClientRect();
-  //   this.simAxes = { x: width, y: height };
-  //   const simulation = this.sim$.getValue();
-  //   if (simulation) {
-  //     simulation.init(this.simAxes);
-  //   }
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.fitToView();
+  }
+
+  fitToView() {
+    this.visService.fitToView();
+  }
 
   ngAfterContentInit() {
-    // create an array with nodes
-    const nodes = new DataSet([
-      { id: 1, label: 'Node 1' },
-      { id: 2, label: 'Node 2' },
-      { id: 3, label: 'Node 3' },
-      { id: 4, label: 'Node 4' },
-      { id: 5, label: 'Node 5' }
-    ]);
-
-    // create an array with edges
-    const edges = new DataSet([
-      { from: 1, to: 3 },
-      { from: 1, to: 2 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 }
-    ]);
-    this.graphData = { nodes, edges };
-
-    this.simAxes = { x: window.outerWidth / 1.2, y: window.outerHeight / 1.5 };
-    this.simApi.getGraphs().subscribe(gArr => {
-      // const sim = this.d3Sim.startSimulation(this.d3Graph.graph, this.simAxes);
-      // this.tickerSubscription = sim.ticker.subscribe(_ => this.changeRef.markForCheck());
-      // this.sim$.next(sim);
-      gArr.forEach(g => {
-        this.graphData.nodes = new DataSet<Node>(
-          g.nodes.map(n => ({ id: n.id, label: n.label }))
-        );
-        this.graphData.edges = new DataSet<Edge>(
-          g.edges.map(e => ({
-            from: isRefNode(e.source) ? e.source.id : e.source.toString(),
-            to: isRefNode(e.target) ? e.target.id : e.target.toString()
-          }))
-        );
-        // this.changeRef.markForCheck();
-        console.log('graphData', this.graphData);
+    this.simApi.getGraphs().subscribe(graphArr => {
+      this.visService.updateNetwork(
+        this.networkContainer.nativeElement,
+        graphArr
+      );
+      this.coordSub = this.visService.nodeSelect().subscribe(e => {
+        this.getEditor(e.pointer.DOM, e.nodes[0]);
       });
     });
   }
 
   ngOnDestroy() {
-    this.tickerSubscription.unsubscribe();
-    this.d3Sim.stopSimulation();
+    if (this.coordSub) {
+      this.coordSub.unsubscribe();
+    }
   }
 
-  getEditor(coords: XY) {
-    this.editorCoords = coords;
+  getEditor(coords: XY, title: string) {
+    const {
+      top,
+      left
+    } = this.networkContainer.nativeElement.getBoundingClientRect();
+    this.editorCoords = {
+      x: coords.x + left,
+      y: coords.y + top
+    };
+    this.windowRef = this.windowService.open(EditorComponent, {
+      title: `Edit ${title}`,
+      context: { coords: this.editorCoords, title },
+      viewContainerRef: this.networkContainer.nativeElement
+    });
+    this.windowRef.onClose.subscribe(_ => this.visService.unselect());
   }
 }

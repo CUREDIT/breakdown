@@ -24,23 +24,20 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.urlSub = this.route.url.subscribe(urlSegs => {
-      urlSegs.map(urlSeg => {
-        if (urlSeg.path === CONTEXT) {
-          this.flipped = true;
-        } else if (urlSeg.path !== CONTENT) {
-          this.workspaceName = urlSeg.path;
-        } else if (urlSeg.path === CONTENT) {
-          this.flipped = false;
-        }
-      });
+      this.flipped = urlSegs[0].path === CONTENT ? false : true;
+      this.workspaceName = urlSegs[1].path;
     });
   }
 
   toggleNav() {
     if (this.flipped) {
-      this.location.go(this.router.createUrlTree([CONTENT, this.workspaceName]).toString());
+      this.location.go(
+        this.router.createUrlTree([CONTENT, this.workspaceName]).toString()
+      );
     } else {
-      this.location.go(this.router.createUrlTree([CONTEXT, this.workspaceName]).toString());
+      this.location.go(
+        this.router.createUrlTree([CONTEXT, this.workspaceName]).toString()
+      );
     }
     this.flipped = !this.flipped;
   }

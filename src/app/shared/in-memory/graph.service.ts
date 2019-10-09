@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Edge, isRefNode, NodeRef } from 'src/app/models/edge.model';
+import { Edge } from 'src/app/models/edge.model';
 import { Node } from 'src/app/models/node.model';
 import { Graph } from '../../models/graph.model';
+import { IdType } from 'vis';
 
 @Injectable({
   providedIn: 'root'
 })
-export class D3GraphService {
+export class GraphService {
 
   private singletonGraph: Graph;
 
@@ -21,9 +22,8 @@ export class D3GraphService {
    * @param node: Node
    * @returns node if exists else returns an instance with the id from input
    */
-  getNodeInGraph(node: Node | string): Node {
-    const nodeId = typeof (node) === 'string' ? node : node.id;
-    return this.singletonGraph.nodes.find(n => n.id === nodeId) || new Node(nodeId);
+  getNodeInGraph(node: IdType): Node {
+    return this.singletonGraph.nodes.find(n => n.id === node) || new Node(node.toString());
   }
 
   /**
@@ -32,21 +32,19 @@ export class D3GraphService {
    * @returns edge connecting graph's existing nodes
    */
   getEdgeInGraph(e: Edge): Edge {
-    const sourceId = this.getIdFromNodeRef(e.source);
-    const targetId = this.getIdFromNodeRef(e.target);
-    return new Edge(this.getNodeInGraph(sourceId), this.getNodeInGraph(targetId));
+    return new Edge(this.getNodeInGraph(e.from).id, this.getNodeInGraph(e.to).id);
   }
 
-  getIdFromNodeRef(nodeRef: NodeRef): string {
-    return isRefNode(nodeRef) ? nodeRef.id : nodeRef.toString();
-  }
+  // getIdFromNodeRef(nodeRef: IdType): string {
+  //   return isRefNode(nodeRef) ? nodeRef.id : nodeRef.toString();
+  // }
 
-  getIdsFromNodeRefs(nodeRefs: NodeRef[]): string[] {
-    return nodeRefs.map(nr => this.getIdFromNodeRef(nr));
-  }
+  // getIdsFromNodeRefs(nodeRefs: IdType[]): string[] {
+  //   return nodeRefs.map(nr => this.getIdFromNodeRef(nr));
+  // }
 
   updateNodes(nodes: Node[], remove: boolean): Node[] {
-    const inGraphNodes = nodes.map(n => this.getNodeInGraph(n));
+    const inGraphNodes = nodes.map(n => this.getNodeInGraph(n.id));
     if (!remove) {
       this.singletonGraph.nodes.push(...inGraphNodes);
     } else {
@@ -61,9 +59,8 @@ export class D3GraphService {
     if (!remove) {
       this.singletonGraph.edges.push(...inGraphEdges);
     } else {
-      const inGraphEdgeRefIds = inGraphEdges.map(e => this.getIdsFromNodeRefs([e.source, e.target]));
       this.singletonGraph.edges = this.singletonGraph.edges
-        .filter(n => !inGraphEdgeRefIds.includes(this.getIdsFromNodeRefs([n.source, n.target])));
+        .filter(se => !inGraphEdges.map(ie => ({from: ie.from, to: ie.to})).includes({from: se.from, to: se.to}));
     }
     return this.edges;
   }

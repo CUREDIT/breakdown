@@ -37,63 +37,63 @@ export class InMemoryNetApiService implements InMemoryDbService {
         ],
         [
           {
-            source: first,
-            target: second,
+            from: first.id,
+            to: second.id,
             label: 'is parent of'
           },
           {
-            source: first,
-            target: third,
+            from: first.id,
+            to: third.id,
             label: 'custom label'
           },
           {
-            source: last,
-            target: second,
+            from: last.id,
+            to: second.id,
             label: 'last label'
           },
           {
-            source: last,
-            target: third,
+            from: last.id,
+            to: third.id,
             label: 'custom label'
           },
           {
-            source: orphana,
-            target: orphanb,
+            from: orphana.id,
+            to: orphanb.id,
             label: 'orphana-b'
           },
           {
-            source: orphana,
-            target: orphanc,
+            from: orphana.id,
+            to: orphanc.id,
             label: 'orphana-c'
           },
           {
-            source: orphanb,
-            target: orphanc,
+            from: orphanb.id,
+            to: orphanc.id,
             label: 'orphanb-c'
           },
           {
-            source: orc,
-            target: ord,
+            from: orc.id,
+            to: ord.id,
             label: 'orcd'
           },
           {
-            source: ord,
-            target: ore,
+            from: ord.id,
+            to: ore.id,
             label: 'orde'
           },
           {
-            source: ore,
-            target: orf,
+            from: ore.id,
+            to: orf.id,
             label: 'oref'
           },
           {
-            source: orphanc,
-            target: orc,
+            from: orphanc.id,
+            to: orc.id,
             label: 'orphanc-orc'
           },
           {
-            source: first,
-            target: orf,
+            from: first.id,
+            to: orf.id,
             label: 'oref'
           }
         ]

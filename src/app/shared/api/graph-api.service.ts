@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Graph } from '../../models/graph.model';
-import { D3GraphService } from '../d3/d3-graph.service';
+import { GraphService } from '../in-memory/graph.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class SimApiService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient, private d3Graph: D3GraphService) { }
+  constructor(private http: HttpClient, private graphService: GraphService) { }
 
   updateInMemoryGraph(g: Graph, remove = false): Graph {
-    this.d3Graph.updateNodes(g.nodes, remove);
-    this.d3Graph.updateEdges(g.edges, remove);
-    return this.d3Graph.graph;
+    this.graphService.updateNodes(g.nodes, remove);
+    this.graphService.updateEdges(g.edges, remove);
+    return this.graphService.graph;
   }
 
   getGraphs(): Observable<Graph[]> {
