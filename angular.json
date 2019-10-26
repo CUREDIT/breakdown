@@ -118,9 +118,7 @@
               "apps/curedit/tsconfig.app.json",
               "apps/curedit/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -145,12 +143,171 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/curedit-e2e/tsconfig.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
-  "defaultProject": "curedit"
+    },
+    "curemedya": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/curemedya",
+      "sourceRoot": "apps/curemedya/src",
+      "prefix": "curedit",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/curemedya",
+            "index": "apps/curemedya/src/index.html",
+            "main": "apps/curemedya/src/main.ts",
+            "polyfills": "apps/curemedya/src/polyfills.ts",
+            "tsConfig": "apps/curemedya/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/curemedya/src/favicon.ico",
+              "apps/curemedya/src/assets"
+            ],
+            "styles": ["apps/curemedya/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/curemedya/src/environments/environment.ts",
+                  "with": "apps/curemedya/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "curemedya:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "curemedya:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "curemedya:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/curemedya/tsconfig.app.json",
+              "apps/curemedya/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/curemedya/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/curemedya/jest.config.js",
+            "tsConfig": "apps/curemedya/tsconfig.spec.json",
+            "setupFile": "apps/curemedya/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "curemedya-e2e": {
+      "root": "apps/curemedya-e2e",
+      "sourceRoot": "apps/curemedya-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/curemedya-e2e/cypress.json",
+            "tsConfig": "apps/curemedya-e2e/tsconfig.e2e.json",
+            "devServerTarget": "curemedya:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "curemedya:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/curemedya-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/curemedya-e2e/**"]
+          }
+        }
+      }
+    },
+    "libcuredit": {
+      "root": "libs/libcuredit",
+      "sourceRoot": "libs/libcuredit/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/libcuredit/tsconfig.lib.json",
+              "libs/libcuredit/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/libcuredit/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/libcuredit/jest.config.js",
+            "tsConfig": "libs/libcuredit/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "curedit",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  }
 }
