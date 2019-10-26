@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "nG auto",
+  "version": "0.0.1",
+  "description": "Automate your browser",
+  "background": {
+    "scripts": [
+      "background.js",
+      "runtime.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "index.html"
+  }
+}

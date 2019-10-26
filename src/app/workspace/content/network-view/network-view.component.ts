@@ -25,7 +25,7 @@ export class NetworkViewComponent implements AfterContentInit, OnDestroy {
     private windowService: NbWindowService
   ) {}
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [])
   onResize() {
     this.fitToView();
   }
