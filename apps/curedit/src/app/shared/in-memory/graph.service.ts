@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Edge } from 'src/app/models/edge.model';
-import { Node } from 'src/app/models/node.model';
+import { Edge } from '../../models/edge.model';
 import { Graph } from '../../models/graph.model';
+import { Node } from '../../models/node.model';
+import { Injectable } from '@angular/core';
 import { IdType } from 'vis';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GraphService {
-
   private singletonGraph: Graph;
 
   constructor() {
@@ -23,7 +22,10 @@ export class GraphService {
    * @returns node if exists else returns an instance with the id from input
    */
   getNodeInGraph(node: IdType): Node {
-    return this.singletonGraph.nodes.find(n => n.id === node) || new Node(node.toString());
+    return (
+      this.singletonGraph.nodes.find(n => n.id === node) ||
+      new Node(node.toString())
+    );
   }
 
   /**
@@ -32,7 +34,10 @@ export class GraphService {
    * @returns edge connecting graph's existing nodes
    */
   getEdgeInGraph(e: Edge): Edge {
-    return new Edge(this.getNodeInGraph(e.from).id, this.getNodeInGraph(e.to).id);
+    return new Edge(
+      this.getNodeInGraph(e.from).id,
+      this.getNodeInGraph(e.to).id
+    );
   }
 
   // getIdFromNodeRef(nodeRef: IdType): string {
@@ -49,7 +54,9 @@ export class GraphService {
       this.singletonGraph.nodes.push(...inGraphNodes);
     } else {
       const inGraphNodeIds = inGraphNodes.map(n => n.id);
-      this.singletonGraph.nodes = this.singletonGraph.nodes.filter(n => !inGraphNodeIds.includes(n.id));
+      this.singletonGraph.nodes = this.singletonGraph.nodes.filter(
+        n => !inGraphNodeIds.includes(n.id)
+      );
     }
     return this.nodes;
   }
@@ -59,19 +66,19 @@ export class GraphService {
     if (!remove) {
       this.singletonGraph.edges.push(...inGraphEdges);
     } else {
-      this.singletonGraph.edges = this.singletonGraph.edges
-        .filter(se => !inGraphEdges.map(ie => ({from: ie.from, to: ie.to})).includes({from: se.from, to: se.to}));
+      this.singletonGraph.edges = this.singletonGraph.edges.filter(
+        se =>
+          !inGraphEdges
+            .map(ie => ({ from: ie.from, to: ie.to }))
+            .includes({ from: se.from, to: se.to })
+      );
     }
     return this.edges;
   }
 
-  removeNodes(nodes: Node[]) {
+  removeNodes(nodes: Node[]) {}
 
-  }
-
-  removeEdges(edges: Edge[]) {
-
-  }
+  removeEdges(edges: Edge[]) {}
 
   get graph(): Graph {
     return this.singletonGraph;
@@ -92,5 +99,4 @@ export class GraphService {
   get edges(): Edge[] {
     return this.singletonGraph.edges.slice();
   }
-
 }

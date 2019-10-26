@@ -1,6 +1,5 @@
+import { XY } from '../../typings/graph';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { XY } from 'src/app/typings/graph';
-
 
 @Component({
   selector: 'curedit-editor',

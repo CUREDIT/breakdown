@@ -6,8 +6,25 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "nx workspace-lint && ng lint",
+    "e2e": "ng e2e",
+    "nx": "nx",
+    "affected:apps": "nx affected:apps",
+    "affected:libs": "nx affected:libs",
+    "affected:build": "nx affected:build",
+    "affected:e2e": "nx affected:e2e",
+    "affected:test": "nx affected:test",
+    "affected:lint": "nx affected:lint",
+    "affected:dep-graph": "nx affected:dep-graph",
+    "affected": "nx affected",
+    "format": "nx format:write",
+    "format:write": "nx format:write",
+    "format:check": "nx format:check",
+    "update": "ng update @nrwl/workspace",
+    "update:check": "ng update",
+    "dep-graph": "nx dep-graph",
+    "workspace-schematic": "nx workspace-schematic",
+    "help": "nx help"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +40,8 @@
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@nebular/eva-icons": "4.2.1",
     "@nebular/theme": "^4.2.1",
+    "@nrwl/angular": "^8.4.13",
+    "@nrwl/workspace": "^8.4.13",
     "@types/vis": "^4.21.19",
     "angular-in-memory-web-api": "^0.9.0",
     "angularfire2": "^5.2.1",
@@ -58,6 +77,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3",
-    "webpack-extension-reloader": "^1.1.1"
+    "webpack-extension-reloader": "^1.1.1",
+    "@nrwl/workspace": "8.4.13",
+    "prettier": "1.16.4"
   }
 }

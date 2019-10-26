@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Options, Position, Network, Callback, DataSet } from 'vis';
-import { GraphData } from 'src/app/typings/graphData';
-import { Graph } from '../../models/graph.model';
 import { Edge } from '../../models/edge.model';
+import { Graph } from '../../models/graph.model';
 import { Node } from '../../models/node.model';
-import { Observable, fromEvent } from 'rxjs';
+import { GraphData } from '../../typings/graphData';
+import { Injectable } from '@angular/core';
+import { fromEvent, Observable } from 'rxjs';
+import { DataSet, Network, Options, Position } from 'vis';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VisService {
-
   private networkOptions: Options;
 
   private network: Network;
@@ -62,19 +61,24 @@ export class VisService {
   }
 
   updateNetwork(element: HTMLElement, graphs: Graph[], options?: Options) {
-    if (graphs.length < 1) { return; }
+    if (graphs.length < 1) {
+      return;
+    }
     graphs.forEach(g => {
       this.graphData.nodes.update(g.nodes);
       this.graphData.edges.update(g.edges);
     });
     if (!this.network) {
-      this.network = new Network(element, this.graphData, options || this.networkOptions);
+      this.network = new Network(
+        element,
+        this.graphData,
+        options || this.networkOptions
+      );
     } else {
       this.network.setData(this.graphData);
     }
     return this.network;
   }
-
 
   click(): Observable<any> {
     return fromEvent(this.network, 'click');
@@ -93,23 +97,31 @@ export class VisService {
   }
 
   unselect() {
-    if (!this.network) { return; }
+    if (!this.network) {
+      return;
+    }
     this.network.unselectAll();
   }
 
   enableAdd() {
-    if (!this.network) { return; }
+    if (!this.network) {
+      return;
+    }
     this.network.addNodeMode();
     this.network.addEdgeMode();
   }
 
   disableAdd() {
-    if (!this.network) { return; }
+    if (!this.network) {
+      return;
+    }
     this.network.disableEditMode();
   }
 
   fitToView() {
-    if (!this.network) { return; }
+    if (!this.network) {
+      return;
+    }
     this.network.fit({ animation: true });
   }
 }

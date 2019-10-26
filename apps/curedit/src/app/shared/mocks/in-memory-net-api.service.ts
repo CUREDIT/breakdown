@@ -1,13 +1,12 @@
+import { Graph } from '../../models/graph.model';
+import { Node } from '../../models/node.model';
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Graph } from 'src/app/models/graph.model';
-import { Node } from 'src/app/models/node.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemoryNetApiService implements InMemoryDbService {
-
   createDb() {
     const first = new Node('first'); // .setLinkCount(2);
     const second = new Node('second'); // .setLinkCount(2);
@@ -33,7 +32,7 @@ export class InMemoryNetApiService implements InMemoryDbService {
           orc,
           ord,
           ore,
-          orf,
+          orf
         ],
         [
           {
