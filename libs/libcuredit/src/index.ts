@@ -1,1 +1,1 @@
-export * from './lib/libcuredit';
+export * from './lib/libcuredit.module';

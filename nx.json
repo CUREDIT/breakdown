@@ -22,6 +22,12 @@
     },
     "libcuredit": {
       "tags": []
+    },
+    "curemedit": {
+      "tags": []
+    },
+    "curemedit-e2e": {
+      "tags": []
     }
   }
 }

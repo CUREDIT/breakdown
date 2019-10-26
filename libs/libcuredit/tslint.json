@@ -1,1 +1,7 @@
-{ "extends": "../../tslint.json", "rules": [] }
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "libcuredit", "camelCase"],
+    "component-selector": [true, "element", "libcuredit", "kebab-case"]
+  }
+}
