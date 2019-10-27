@@ -5,11 +5,15 @@
   "description": "Automate your browser",
   "background": {
     "scripts": [
-      "background.js",
-      "runtime.js"
+      "./curedit/background-es2015.js",
+      "./curedit/runtime-es2015.js"
     ]
   },
   "browser_action": {
-    "default_popup": "index.html"
-  }
+    "default_popup": "./curemedit/index.html"
+  },
+  "permissions": [
+    "tabs",
+    "webNavigation"
+  ]
 }

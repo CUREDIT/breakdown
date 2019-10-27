@@ -45,12 +45,10 @@
               }
             },
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/curedit/src/environments/environment.ts",
-                  "with": "apps/curedit/src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "apps/curedit/src/environments/environment.ts",
+                "with": "apps/curedit/src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -60,8 +58,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
@@ -104,7 +101,6 @@
               "apps/curedit/src/assets"
             ],
             "styles": [
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "apps/curedit/src/styles.scss"
             ],
@@ -144,129 +140,6 @@
           "options": {
             "tsConfig": "apps/curedit-e2e/tsconfig.json",
             "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
-    "curemedya": {
-      "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "apps/curemedya",
-      "sourceRoot": "apps/curemedya/src",
-      "prefix": "curedit",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/curemedya",
-            "index": "apps/curemedya/src/index.html",
-            "main": "apps/curemedya/src/main.ts",
-            "polyfills": "apps/curemedya/src/polyfills.ts",
-            "tsConfig": "apps/curemedya/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "apps/curemedya/src/favicon.ico",
-              "apps/curemedya/src/assets"
-            ],
-            "styles": ["apps/curemedya/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/curemedya/src/environments/environment.ts",
-                  "with": "apps/curemedya/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "curemedya:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "curemedya:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "curemedya:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/curemedya/tsconfig.app.json",
-              "apps/curemedya/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/curemedya/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/curemedya/jest.config.js",
-            "tsConfig": "apps/curemedya/tsconfig.spec.json",
-            "setupFile": "apps/curemedya/src/test-setup.ts"
-          }
-        }
-      }
-    },
-    "curemedya-e2e": {
-      "root": "apps/curemedya-e2e",
-      "sourceRoot": "apps/curemedya-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/curemedya-e2e/cypress.json",
-            "tsConfig": "apps/curemedya-e2e/tsconfig.e2e.json",
-            "devServerTarget": "curemedya:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "curemedya:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/curemedya-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/curemedya-e2e/**"]
           }
         }
       }
@@ -321,29 +194,33 @@
       "prefix": "curemedit",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack/ext-popup.config.js",
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/apps/curemedit",
             "index": "apps/curemedit/src/index.html",
             "main": "apps/curemedit/src/main.ts",
             "polyfills": "apps/curemedit/src/polyfills.ts",
             "tsConfig": "apps/curemedit/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/curemedit/src/favicon.ico",
               "apps/curemedit/src/assets"
             ],
-            "styles": ["apps/curemedit/src/styles.scss"],
+            "styles": [
+              "apps/curemedit/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/curemedit/src/environments/environment.ts",
-                  "with": "apps/curemedit/src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "apps/curemedit/src/environments/environment.ts",
+                "with": "apps/curemedit/src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -353,8 +230,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
+              "budgets": [{
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
