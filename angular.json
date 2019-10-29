@@ -50,7 +50,7 @@
                 "with": "apps/curedit/src/environments/environment.prod.ts"
               }],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "media",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -222,7 +222,7 @@
                 "with": "apps/curemedit/src/environments/environment.prod.ts"
               }],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "media",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,

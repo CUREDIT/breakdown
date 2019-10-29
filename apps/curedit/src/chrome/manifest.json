@@ -1,19 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "nG auto",
+  "name": "Hg Cure",
   "version": "0.0.1",
-  "description": "Automate your browser",
+  "description": "Automate your browsing",
   "background": {
-    "scripts": [
-      "./curedit/background-es2015.js",
-      "./curedit/runtime-es2015.js"
-    ]
+    "scripts": ["./curedit/background.js", "./curedit/runtime.js"]
   },
   "browser_action": {
     "default_popup": "./curemedit/index.html"
   },
-  "permissions": [
-    "tabs",
-    "webNavigation"
-  ]
+  "permissions": ["tabs", "webNavigation"]
 }
