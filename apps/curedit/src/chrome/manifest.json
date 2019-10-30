@@ -4,11 +4,12 @@
   "version": "0.0.1",
   "description": "Automate your browsing",
   "background": {
-    "scripts": ["./curedit/background.js", "./curedit/runtime.js"]
+    "scripts": ["background.curedit.js", "runtime.curedit.js"]
   },
   "browser_action": {
     "default_popup": "./curemedit/index.html"
   },
   "permissions": ["tabs", "webNavigation", "storage"],
-  "options_page": "./curedit/index.html"
+  "options_page": "./curedit/index.html",
+  "minimum_chrome_version": "61"
 }

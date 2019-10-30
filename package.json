@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build curedit && ng build curemedit",
+    "build": "ng build curedit && ng build curemedit && ./sed.sh",
+    "buildprod": "ng build curedit --prod && ng build curemedit --prod && ./sed.sh",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -86,13 +87,6 @@
     "typescript": "~3.5.3",
     "webpack-extension-reloader": "^1.1.1",
     "@nrwl/workspace": "8.4.13",
-    "prettier": "1.16.4",
-    "jest-preset-angular": "7.0.0",
-    "@nrwl/jest": "8.4.13",
-    "jest": "24.1.0",
-    "@types/jest": "24.0.9",
-    "ts-jest": "24.0.0",
-    "cypress": "3.4.1",
-    "@nrwl/cypress": "8.4.13"
+    "prettier": "1.16.4"
   }
 }
