@@ -1,0 +1,62 @@
+<nb-card>
+  <nb-card-body>
+    <label class="search-label" for="search">Search:</label>
+    <input
+      nbInput
+      [nbFilterInput]="dataSource"
+      id="search"
+      class="search-input"
+    />
+    <table
+      [nbTreeGrid]="dataSource"
+      [nbSort]="dataSource"
+      (sort)="updateSort($event)"
+    >
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+      <ng-container [nbTreeGridColumnDef]="customColumn">
+        <th
+          nbTreeGridHeaderCell
+          [nbSortHeader]="getSortDirection(customColumn)"
+          *nbTreeGridHeaderCellDef
+        >
+          {{ customColumn }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <curedit-fs-icon
+            [kind]="row.data.kind"
+            [expanded]="row.expanded"
+          ></curedit-fs-icon>
+          <a *ngIf="row.data.kind === 'url'; else folder" [href]="row.data.url" target="_blank">
+            {{ row.data[customColumn] }}
+          </a>
+          <ng-template #folder>
+            {{ row.data[customColumn] }}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container
+        *ngFor="let column of defaultColumns; let index = index"
+        [nbTreeGridColumnDef]="column"
+        [showOn]="getShowOn(index)"
+      >
+        <th
+          nbTreeGridHeaderCell
+          [nbSortHeader]="getSortDirection(column)"
+          *nbTreeGridHeaderCellDef
+        >
+          {{ column }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          {{
+            column !== 'modified'
+              ? row.data[column]
+              : (row.data[column] | date:'medium')
+          }}
+        </td>
+      </ng-container>
+    </table>
+  </nb-card-body>
+</nb-card>

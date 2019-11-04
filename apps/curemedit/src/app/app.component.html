@@ -1,6 +1,16 @@
 <div class="media-controls">
-  <fa-icon [icon]="faStepBackward"></fa-icon>
-  <fa-icon *ngIf="isRecording" [icon]="faPauseCircle"></fa-icon>
-  <fa-icon *ngIf="!isRecording" [icon]="faPauseCircle"></fa-icon>
-  <fa-icon [icon]="faStepForward"></fa-icon>
+  <fa-icon [border]="true" [icon]="['fas', 'step-backward']"></fa-icon>
+  <fa-icon
+    *ngIf="isRecording"
+    [border]="true"
+    [icon]="['fas', 'dot-circle']"
+    (click)="toggleRecording()"
+  ></fa-icon>
+  <fa-icon
+    *ngIf="!isRecording"
+    [border]="true"
+    [icon]="['fas', 'stop-circle']"
+    (click)="toggleRecording()"
+  ></fa-icon>
+  <fa-icon [border]="true" [icon]="['fas', 'step-forward']"></fa-icon>
 </div>

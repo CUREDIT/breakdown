@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ContentComponent } from './content/content.component';
 import { InitBarComponent } from './init-bar/init-bar.component';
+import { NgModule } from '@angular/core';
+import { OpenComponent } from './bookmarks/open/open.component';
 import { WorkspaceComponent } from './workspace.component';
-
 
 const routes: Routes = [
   {
@@ -16,7 +17,11 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: InitBarComponent,
+        component: InitBarComponent
+      },
+      {
+        path: 'open',
+        component: OpenComponent
       },
       {
         path: 'content/:note',
@@ -26,7 +31,7 @@ const routes: Routes = [
         path: 'context/:note',
         component: ContentComponent
       }
-    ],
+    ]
   }
 ];
 
@@ -34,4 +39,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class WorkspaceRoutingModule { }
+export class WorkspaceRoutingModule {}
