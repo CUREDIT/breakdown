@@ -14,12 +14,14 @@ module.exports = {
     ]),
     new WebpackShellPlugin({
       onBuildExit: [
-        // Rename sourcemaps, js and css files -> skip chunks -> move them to extension root
+        // Rename sourcemaps, js and css files -> undo chunks renamings -> move them to extension root
         'echo "Moving Options App Contents..."',
         'for f in ./dist/apps/curedit/*.js.map; do mv "$f"  "${f%.js.map}.curedit.js.map"; done ',
         'for f in ./dist/apps/curedit/*.js; do mv "$f"  "${f%.js}.curedit.js"; done ',
         'mv ./dist/apps/curedit/styles.css ./dist/apps/curedit/styles.curedit.css',
         'for f in ./dist/apps/curedit/[0-9].curedit.js; do mv "$f" "${f%.curedit.js}.js"; done ',
+        'for f in ./dist/apps/curedit/workspace*.curedit.js; do mv "$f" "${f%.curedit.js}.js"; done ',
+        'for f in ./dist/apps/curedit/workspace*.curedit.js.map; do mv "$f" "${f%.curedit.js.map}.js.map"; done ',
         'mv -v ./dist/apps/curedit/* ./dist/apps/'
       ],
       safe: true

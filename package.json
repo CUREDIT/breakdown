@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build curedit && ng build curemedit && ./sed.sh",
-    "buildprod": "ng build curedit --prod && ng build curemedit --prod && ./sed.sh",
+    "build": "rm -rf ./dist/ && ng build curedit && ng build curemedit && ./sed.sh",
+    "buildprod": "rm -rf ./dist/ && ng build curedit --prod && ng build curemedit --prod && ./sed.sh",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
@@ -40,6 +40,7 @@
     "@angular/router": "~8.2.4",
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-regular-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@nebular/eva-icons": "4.2.1",
     "@nebular/theme": "^4.2.1",

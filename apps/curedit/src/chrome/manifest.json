@@ -7,9 +7,31 @@
     "scripts": ["background.curedit.js", "runtime.curedit.js"]
   },
   "browser_action": {
-    "default_popup": "./curemedit/index.html"
+    "default_popup": "./curemedit/index.html",
+    "default_title": "Hg Playlist Controls"
   },
-  "permissions": ["tabs", "webNavigation", "storage"],
+  "permissions": ["tabs", "webNavigation", "storage", "bookmarks"],
   "options_page": "./curedit/index.html",
-  "minimum_chrome_version": "61"
+  "minimum_chrome_version": "61",
+  "commands": {
+    "toggle-recording": {
+      "suggested_key": {
+        "default": "Alt+Shift+T"
+      },
+      "description": "Start/Stop Recording Browsing Session"
+    },
+    "next-tabs": {
+      "suggested_key": {
+        "default": "Alt+Shift+N"
+      },
+      "description": "Load next tabs from the playlist"
+    },
+    "prev-tabs": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Load previous tabs from the playlist"
+    }
+
+  }
 }
