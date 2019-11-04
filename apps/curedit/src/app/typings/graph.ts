@@ -5,7 +5,7 @@ export interface XY {
 
 export interface NodeOrder {
   [nodeId: string]: {
-    sources: number,
-    targets: number
+    sources: number;
+    targets: number;
   };
 }

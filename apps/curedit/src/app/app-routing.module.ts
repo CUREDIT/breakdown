@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './sso/auth.component';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -10,8 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./workspace/workspace.module')
-      .then(m => m.WorkspaceModule)
+    loadChildren: () =>
+      import('./workspace/workspace.module').then(m => m.WorkspaceModule)
   },
   {
     path: '**',
@@ -24,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
