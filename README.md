@@ -1,3 +1,7 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/CUREDIT/breakdown)
+
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/CUREDIT/breakdown)
+
 # Curedit
 
 This project demonstrates a graph based editor for contextual texts.
